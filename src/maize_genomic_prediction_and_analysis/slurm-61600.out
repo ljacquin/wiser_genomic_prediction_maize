@@ -1,0 +1,208 @@
+[1] "using maize_env"
+Le chargement a nécessité le package : Matrix
+
+Attachement du package : ‘tidyr’
+
+Les objets suivants sont masqués depuis ‘package:Matrix’:
+
+    expand, pack, unpack
+
+Le chargement a nécessité le package : foreach
+Le chargement a nécessité le package : iterators
+Le chargement a nécessité le package : parallel
+Le chargement a nécessité le package : rngtools
+This build of rgl does not include OpenGL functions.  Use
+ rglwidget() to display results, e.g. via options(rgl.printRglwidget = TRUE).
+Le chargement a nécessité le package : Rcpp
+Le chargement a nécessité le package : RcppZiggurat
+Le chargement a nécessité le package : RcppParallel
+
+Attachement du package : ‘RcppParallel’
+
+L'objet suivant est masqué depuis ‘package:Rcpp’:
+
+    LdFlags
+
+
+Rfast: 2.1.0
+ ___ __ __ __ __    __ __ __ __ __ _             _               __ __ __ __ __     __ __ __ __ __ __   
+|  __ __ __ __  |  |  __ __ __ __ _/            / \             |  __ __ __ __ /   /__ __ _   _ __ __\  
+| |           | |  | |                         / _ \            | |                        / /          
+| |           | |  | |                        / / \ \           | |                       / /          
+| |           | |  | |                       / /   \ \          | |                      / /          
+| |__ __ __ __| |  | |__ __ __ __           / /     \ \         | |__ __ __ __ _        / /__/\          
+|    __ __ __ __|  |  __ __ __ __|         / /__ _ __\ \        |_ __ __ __ _   |      / ___  /           
+|   \              | |                    / _ _ _ _ _ _ \                     | |      \/  / /       
+| |\ \             | |                   / /           \ \                    | |         / /          
+| | \ \            | |                  / /             \ \                   | |        / /          
+| |  \ \           | |                 / /               \ \                  | |       / /          
+| |   \ \__ __ _   | |                / /                 \ \     _ __ __ __ _| |      / /          
+|_|    \__ __ __\  |_|               /_/                   \_\   /_ __ __ __ ___|      \/             team
+
+Attachement du package : ‘Rfast’
+
+Les objets suivants sont masqués depuis ‘package:robustbase’:
+
+    colMedians, rowMedians
+
+L'objet suivant est masqué depuis ‘package:data.table’:
+
+    transpose
+
+Le chargement a nécessité le package : lattice
+
+Attachement du package : ‘plotly’
+
+L'objet suivant est masqué depuis ‘package:ggplot2’:
+
+    last_plot
+
+L'objet suivant est masqué depuis ‘package:MASS’:
+
+    select
+
+L'objet suivant est masqué depuis ‘package:stats’:
+
+    filter
+
+L'objet suivant est masqué depuis ‘package:graphics’:
+
+    layout
+
+
+Attachement du package : ‘dplyr’
+
+L'objet suivant est masqué depuis ‘package:Rfast’:
+
+    nth
+
+Les objets suivants sont masqués depuis ‘package:data.table’:
+
+    between, first, last
+
+L'objet suivant est masqué depuis ‘package:MASS’:
+
+    select
+
+Les objets suivants sont masqués depuis ‘package:stats’:
+
+    filter, lag
+
+Les objets suivants sont masqués depuis ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+
+Attachement du package : ‘kernlab’
+
+L'objet suivant est masqué depuis ‘package:ggplot2’:
+
+    alpha
+
+Le chargement a nécessité le package : corpcor
+
+Attachement du package : ‘corpcor’
+
+L'objet suivant est masqué depuis ‘package:matrixcalc’:
+
+    is.positive.definite
+
+Loaded glmnet 4.1-8
+
+Loaded mixOmics 6.25.1
+Thank you for using mixOmics!
+Tutorials: http://mixomics.org
+Bookdown vignette: https://mixomicsteam.github.io/Bookdown
+Questions, issues: Follow the prompts at http://mixomics.org/contact-us
+Cite us:  citation('mixOmics')
+
+[1] "kernel: linear"
+[1] "trait: tassel.height"
+Growing trees.. Progress: 80%. Estimated remaining time: 7 seconds.
+Growing trees.. Progress: 36%. Estimated remaining time: 56 seconds.
+Growing trees.. Progress: 76%. Estimated remaining time: 19 seconds.
+Growing trees.. Progress: 98%. Estimated remaining time: 1 seconds.
+Growing trees.. Progress: 35%. Estimated remaining time: 57 seconds.
+Growing trees.. Progress: 70%. Estimated remaining time: 26 seconds.
+Growing trees.. Progress: 95%. Estimated remaining time: 4 seconds.
+Growing trees.. Progress: 32%. Estimated remaining time: 1 minute, 6 seconds.
+Growing trees.. Progress: 68%. Estimated remaining time: 29 seconds.
+Growing trees.. Progress: 95%. Estimated remaining time: 4 seconds.
+Growing trees.. Progress: 30%. Estimated remaining time: 1 minute, 12 seconds.
+Growing trees.. Progress: 64%. Estimated remaining time: 34 seconds.
+Growing trees.. Progress: 92%. Estimated remaining time: 8 seconds.
+Growing trees.. Progress: 29%. Estimated remaining time: 1 minute, 14 seconds.
+Growing trees.. Progress: 59%. Estimated remaining time: 43 seconds.
+Growing trees.. Progress: 91%. Estimated remaining time: 9 seconds.
+Growing trees.. Progress: 31%. Estimated remaining time: 1 minute, 8 seconds.
+Growing trees.. Progress: 84%. Estimated remaining time: 11 seconds.
+Growing trees.. Progress: 31%. Estimated remaining time: 1 minute, 10 seconds.
+Growing trees.. Progress: 82%. Estimated remaining time: 13 seconds.
+Growing trees.. Progress: 31%. Estimated remaining time: 1 minute, 9 seconds.
+Growing trees.. Progress: 81%. Estimated remaining time: 15 seconds.
+Growing trees.. Progress: 39%. Estimated remaining time: 47 seconds.
+Growing trees.. Progress: 88%. Estimated remaining time: 8 seconds.
+Growing trees.. Progress: 35%. Estimated remaining time: 56 seconds.
+Growing trees.. Progress: 99%. Estimated remaining time: 0 seconds.
+Growing trees.. Progress: 65%. Estimated remaining time: 16 seconds.
+Growing trees.. Progress: 67%. Estimated remaining time: 15 seconds.
+Growing trees.. Progress: 70%. Estimated remaining time: 13 seconds.
+Growing trees.. Progress: 68%. Estimated remaining time: 14 seconds.
+Growing trees.. Progress: 60%. Estimated remaining time: 20 seconds.
+Growing trees.. Progress: 98%. Estimated remaining time: 1 seconds.
+Growing trees.. Progress: 24%. Estimated remaining time: 1 minute, 37 seconds.
+Growing trees.. Progress: 63%. Estimated remaining time: 36 seconds.
+Growing trees.. Progress: 95%. Estimated remaining time: 5 seconds.
+Growing trees.. Progress: 22%. Estimated remaining time: 1 minute, 49 seconds.
+Growing trees.. Progress: 56%. Estimated remaining time: 48 seconds.
+Growing trees.. Progress: 92%. Estimated remaining time: 8 seconds.
+Growing trees.. Progress: 24%. Estimated remaining time: 1 minute, 38 seconds.
+Growing trees.. Progress: 68%. Estimated remaining time: 29 seconds.
+Growing trees.. Progress: 97%. Estimated remaining time: 2 seconds.
+Growing trees.. Progress: 22%. Estimated remaining time: 1 minute, 49 seconds.
+Growing trees.. Progress: 60%. Estimated remaining time: 40 seconds.
+Growing trees.. Progress: 89%. Estimated remaining time: 12 seconds.
+Growing trees.. Progress: 29%. Estimated remaining time: 1 minute, 17 seconds.
+Growing trees.. Progress: 73%. Estimated remaining time: 23 seconds.
+Growing trees.. Progress: 100%. Estimated remaining time: 0 seconds.
+Growing trees.. Progress: 48%. Estimated remaining time: 33 seconds.
+Growing trees.. Progress: 90%. Estimated remaining time: 7 seconds.
+Growing trees.. Progress: 38%. Estimated remaining time: 51 seconds.
+Growing trees.. Progress: 86%. Estimated remaining time: 10 seconds.
+Growing trees.. Progress: 36%. Estimated remaining time: 54 seconds.
+Growing trees.. Progress: 89%. Estimated remaining time: 7 seconds.
+Growing trees.. Progress: 37%. Estimated remaining time: 52 seconds.
+Growing trees.. Progress: 83%. Estimated remaining time: 12 seconds.
+Growing trees.. Progress: 31%. Estimated remaining time: 1 minute, 8 seconds.
+Growing trees.. Progress: 62%. Estimated remaining time: 38 seconds.
+Growing trees.. Progress: 97%. Estimated remaining time: 3 seconds.
+Growing trees.. Progress: 33%. Estimated remaining time: 1 minute, 3 seconds.
+Growing trees.. Progress: 60%. Estimated remaining time: 41 seconds.
+Growing trees.. Progress: 96%. Estimated remaining time: 3 seconds.
+Growing trees.. Progress: 32%. Estimated remaining time: 1 minute, 7 seconds.
+Growing trees.. Progress: 62%. Estimated remaining time: 38 seconds.
+Growing trees.. Progress: 95%. Estimated remaining time: 4 seconds.
+Growing trees.. Progress: 29%. Estimated remaining time: 1 minute, 17 seconds.
+Growing trees.. Progress: 62%. Estimated remaining time: 38 seconds.
+Growing trees.. Progress: 91%. Estimated remaining time: 8 seconds.
+Growing trees.. Progress: 21%. Estimated remaining time: 1 minute, 58 seconds.
+Growing trees.. Progress: 54%. Estimated remaining time: 53 seconds.
+Growing trees.. Progress: 84%. Estimated remaining time: 17 seconds.
+$opt_results
+   whitening_method alpha_ prediction_method   mean_pa white_reg_combination
+6          Cholesky    0.1                rf 0.5399323          Cholesky/0.1
+12         Cholesky    0.1               svr 0.5729170          Cholesky/0.1
+18         Cholesky    0.1             gblup 0.5733298          Cholesky/0.1
+24         Cholesky    0.1              rkhs 0.5833122          Cholesky/0.1
+30         Cholesky    0.1             lasso 0.5009573          Cholesky/0.1
+
+$opt_alpha_
+[1] 0.1
+
+$opt_whitening_method
+[1] "Cholesky"
+
+[1] "Execution time for wiser computation of tassel.height with linear kernel : 54.7"
+[1] "x_mat_tilde_mult_xi_test[1:10]: 3.47867242823929e-13, 4.63864371379511e-14, -4.21848208356215e-14, 3.69089151873881e-14, 8.62930180192982e-14"
+[1] "mean of x_mat_tilde_mult_xi_test: 1.29554555001003e-14"
+[1] "median of x_mat_tilde_mult_xi_test: 3.82725399766456e-15"
