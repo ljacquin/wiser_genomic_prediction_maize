@@ -23,7 +23,6 @@ library(foreach)
 library(parallel)
 library(doParallel)
 library(MASS)
-library(lme4)
 
 # define computation mode, i.e. "local" or "cluster"
 computation_mode <- "cluster"
