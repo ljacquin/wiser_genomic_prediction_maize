@@ -217,6 +217,14 @@ rm(merged_df)
 # variables for each environment (i.e. combination of site, year, management and block)
 fixed_effect_vars_ <- grep("_row$|_column$", colnames(raw_pheno_df), value = TRUE)
 
+# trait_ = "anthesis"
+# df_trait_ <- raw_pheno_df[is.numeric(raw_pheno_df[, trait_]), ]
+# trait_fix_eff_vars_ <- colnames(df_trait_[, fixed_effect_vars_])[
+#   apply(df_trait_[, fixed_effect_vars_], 2, function(x) length(unique(x)) > 1)
+# ]
+# length(unique(df_trait_$Envir))*2
+# length(unique(trait_fix_eff_vars_))
+
 # compute wiser phenotypes,
 # since computations are long, save results for later use
 
