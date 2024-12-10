@@ -1,2 +1,8 @@
+*.R linguist-language=R
+*.Rmd linguist-language=R
+
 *.html linguist-vendored
 *.htm linguist-vendored
+
+*.js linguist-vendored
+*.scss linguist-vendored
