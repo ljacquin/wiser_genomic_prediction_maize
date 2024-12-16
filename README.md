@@ -4,7 +4,7 @@
 
 ### 🎯 Objective
 
-This repository contains R scripts designed for reproducible data analysis and results, aligned with the FAIR principles. The scripts perform data reformatting and phenotypic estimation using WISER, LS-means, and BLUP. The BLUP specifically integrate principal coordinates of genotypes, derived from genomic data, as fixed effects to account for population structure.
+This repository contains R scripts designed for reproducible data analysis and results, aligned with the FAIR principles. The scripts perform data reformatting and phenotypic estimation using WISER, LS-means, and BLUP. The BLUP specifically integrate principal component coordinates of genotypes, derived from genomic data, as fixed effects to account for population structure.
 
 ### 💻 Instructions
 
@@ -24,7 +24,7 @@ Download the ```wiser_genomic_prediction_maize``` repository in the current user
   * ```R -q --vanilla < src/test_requirements.R```
   <p> </p>
   
-* The ```R``` scripts ```0_maize_data_reformatting.R```, ```1_maize_spat_hetero_correct_per_env_trait.R``` and ```2_maize_adjusted_blups_lsmeans_phenotypes``` in the ```src/maize_data_treatment_and_analysis/``` folder perform 0) data reformatting, 1) spatial heterogeneity correction based on rows and columns within each environment (defined as site, year, management type and block), and 2) phenotype estimation using LS-means and BLUP, respectively. The BLUP incorporate principal coordinates of genotypes, derived from genomic data, as fixed effects to account for population structure. These scripts must be executed sequentially from 0) to 2) as the inputs of the next script are the output of the previous one. Note that ```data/phenotype_data/phenotype_data.zip``` must be decompressed before executing these scripts. 
+* The ```R``` scripts ```0_maize_data_reformatting.R```, ```1_maize_spat_hetero_correct_per_env_trait.R``` and ```2_maize_adjusted_blups_lsmeans_phenotypes``` in the ```src/maize_data_treatment_and_analysis/``` folder perform 0) data reformatting, 1) spatial heterogeneity correction based on rows and columns within each environment (defined as site, year, management type and block), and 2) phenotype estimation using LS-means and BLUP, respectively. The BLUP incorporate principal component coordinates of genotypes, derived from genomic data, as fixed effects to account for population structure. These scripts must be executed sequentially from 0) to 2) as the inputs of the next script are the output of the previous one. Note that ```data/phenotype_data/phenotype_data.zip``` must be decompressed before executing these scripts. 
 
 * The ```R``` script ```src/maize_genomic_prediction_and_analysis/maize_wiser_genomic_prediction_trait.R``` performs, for each trait, the genomic prediction tasks and analyses for the phenotypes estimated using WISER, LS-means, and BLUP. Note that this script also computes WISER's phenotypic estimates prior to the genomic prediction tasks.
 
