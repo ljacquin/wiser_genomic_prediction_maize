@@ -25,7 +25,7 @@ library(doParallel)
 library(MASS)
 
 # define computation mode, i.e. "local" or "cluster"
-computation_mode <- "local"
+computation_mode <- "cluster"
 
 # if comutations are local in rstudio, detect and set script path
 # automatically using rstudioapi
@@ -71,12 +71,8 @@ trait_names_ <- str_replace_all(files_names_spats_adj_pheno,
 # initialize lists for lsmeans and blups associated to all traits
 list_ls_means_adj_pheno_per_geno <- vector("list", length(trait_names_))
 names(list_ls_means_adj_pheno_per_geno) <- trait_names_
-
 blup_list_ <- vector("list", length(trait_names_))
 names(blup_list_) <- trait_names_
-
-blup_pca_list_ <- vector("list", length(trait_names_))
-names(blup_pca_list_) <- trait_names_
 
 # initialize vector for aic values
 aic_ <- rep(0, max_n_comp_)
@@ -122,7 +118,7 @@ for (file_ in files_names_spats_adj_pheno) {
 
     # compute aic values in order to select number of pcs
     for (n_comp_ in 1:max_n_comp_) {
-      lmer_pca_model_ <- lmer(
+      lmer_model_ <- lmer(
         as.formula(paste0(
           Y,
           " ~ 1 + Envir + ", paste(pc_var_names_[1:n_comp_],
@@ -130,16 +126,15 @@ for (file_ in files_names_spats_adj_pheno) {
           ),
           " + (1 | Genotype)"
         )),
-        data = df_,
-        REML = FALSE
+        data = df_
       )
-      aic_[n_comp_] <- AIC(lmer_pca_model_)
+      aic_[n_comp_] <- AIC(lmer_model_)
     }
     n_opt_comp_aic_ <- which.min(aic_)
     print(paste0("number of pc selected: ", n_opt_comp_aic_))
 
     # estimate model based on selected number of pcs which minimize aic
-    lmer_pca_model_ <- lmer(
+    lmer_model_ <- lmer(
       as.formula(paste0(
         Y,
         " ~ 1 + Envir + ", paste(pc_var_names_[1:n_opt_comp_aic_],
@@ -147,24 +142,7 @@ for (file_ in files_names_spats_adj_pheno) {
         ),
         " + (1 | Genotype)"
       )),
-      data = df_,
-      REML = TRUE
-    )
-    blup_pca_list_[[str_replace_all(file_, "_spats_adjusted_.*",
-      replacement = ""
-    )]] <- data.frame(
-      "Genotype" = rownames(ranef(lmer_pca_model_)$Genotype),
-      "blup_pca" = as.numeric(unlist(ranef(lmer_pca_model_)$Genotype))
-    )
-
-    # estimate model based on selected number of pcs which minimize aic
-    lmer_model_ <- lmer(
-      as.formula(paste0(
-        Y,
-        " ~ 1 + Envir + (1 | Genotype)"
-      )),
-      data = df_,
-      REML = TRUE
+      data = df_
     )
     blup_list_[[str_replace_all(file_, "_spats_adjusted_.*",
       replacement = ""
@@ -206,46 +184,29 @@ for (file_ in files_names_spats_adj_pheno) {
 
     # compute aic values in order to select number of pcs
     for (n_comp_ in 1:max_n_comp_) {
-      lmer_pca_model_ <- lmer(
+      lmer_model_ <- lmer(
         as.formula(paste0(
           Y, " ~ 1 + ", paste(pc_var_names_[1:n_comp_],
             collapse = " + "
           ),
           " + (1 | Genotype)"
         )),
-        data = df_,
-        REML = FALSE
+        data = df_
       )
-      aic_[n_comp_] <- AIC(lmer_pca_model_)
+      aic_[n_comp_] <- AIC(lmer_model_)
     }
     n_opt_comp_aic_ <- which.min(aic_)
     print(paste0("number of pc selected: ", n_opt_comp_aic_))
 
     # estimate model based on selected number of pcs which minimize aic
-    lmer_pca_model_ <- lmer(
+    lmer_model_ <- lmer(
       as.formula(paste0(
         Y, " ~ 1 + ", paste(pc_var_names_[1:n_opt_comp_aic_],
           collapse = " + "
         ),
         " + (1 | Genotype)"
       )),
-      data = df_,
-      REML = TRUE
-    )
-    blup_pca_list_[[str_replace_all(file_, "_spats_adjusted_.*",
-      replacement = ""
-    )]] <- data.frame(
-      "Genotype" = rownames(ranef(lmer_pca_model_)$Genotype),
-      "blup_pca" = as.numeric(unlist(ranef(lmer_pca_model_)$Genotype))
-    )
-
-    # compute blups for genotypes using a linear mixed model (LMM)
-    lmer_model_ <- lmer(
-      as.formula(paste0(
-        Y, " ~ 1 + (1 | Genotype)"
-      )),
-      data = df_,
-      REML = TRUE
+      data = df_
     )
     blup_list_[[str_replace_all(file_, "_spats_adjusted_.*",
       replacement = ""
@@ -283,24 +244,6 @@ for (file_ in files_names_spats_adj_pheno) {
     ]] <- ls_means
   }
 }
-
-# reduce blup list
-blup_pca_df <- Reduce(
-  function(x, y) {
-    merge(x, y,
-      by = "Genotype",
-      all = T
-    )
-  },
-  blup_pca_list_
-)
-colnames(blup_pca_df) <- c("Genotype", trait_names_)
-
-# write blups
-fwrite(blup_pca_df, file = paste0(
-  pheno_dir_path_,
-  "blup_pca_phenotypes.csv"
-))
 
 # reduce blup list
 blup_df <- Reduce(
