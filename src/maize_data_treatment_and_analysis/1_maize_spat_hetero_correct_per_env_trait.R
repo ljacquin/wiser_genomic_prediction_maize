@@ -16,15 +16,17 @@ library(plotly)
 library(htmlwidgets)
 library(emmeans)
 library(SpATS)
+library(gstat)
 library(stringr)
 library(lme4)
 library(anytime)
 library(foreach)
 library(parallel)
 library(doParallel)
+library(sp)
 
 # define computation mode, i.e. "local" or "cluster"
-computation_mode <- "cluster"
+computation_mode <- "local"
 
 # if comutations are local in rstudio, detect and set script path
 # automatically using rstudioapi
@@ -52,10 +54,13 @@ output_spats_file_path <- paste0(
   "spats_per_env_adjusted_phenotypes/"
 )
 
+# output result path for phenotype graphics
+output_pheno_graphics_path <- "../../results/phenotype_graphics/"
+
 # define function(s) and package(s) to export for parallelization
-func_to_export_ <- c("fread")
+func_to_export_ <- c("fread", "coordinates")
 pkgs_to_export_ <- c(
-  "data.table", "stringr", "SpATS", "lme4",
+  "data.table", "stringr", "SpATS", "lme4", "gstat", "sp",
   "lubridate", "emmeans", "plotly", "tidyr", "htmlwidgets"
 )
 
@@ -136,6 +141,81 @@ singular_model_out_vect_ <-
     # concatenate list elements for spatial heterogeneity correction into a single df_
     df_ <- do.call(rbind, list_spats_envir_)
     df_ <- drop_na(df_)
+
+    # make a spatial plot for the adjusted phenotypes
+    df_spats_trait_ <- df_
+    df_spats_trait_$C <- as.numeric(as.character(df_spats_trait_$C))
+    df_spats_trait_$R <- as.numeric(as.character(df_spats_trait_$R))
+    colnames(df_spats_trait_)[
+      str_detect(
+        colnames(df_spats_trait_),
+        "spats_residuals"
+      )
+    ] <- "spats_residuals"
+
+    spat_resid_plot_ <- ggplot(df_spats_trait_, aes(
+      x = C, y = R,
+      fill = spats_residuals
+    )) +
+      geom_tile(color = "white") +
+      scale_fill_gradient2(
+        low = "blue", mid = "white", high = "red",
+        midpoint = 0
+      ) +
+      labs(
+        title = paste0("SpATS residual spatial plot for ", trait_),
+        x = "Column (C)",
+        y = "Row (R)",
+        fill = "SpATS residuals"
+      ) +
+      theme(
+        axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.ticks.x = element_blank(),
+        panel.grid = element_blank(),
+        plot.background = element_rect(fill = "gray100", color = NA),
+        panel.background = element_rect(fill = "gray100", color = NA)
+      ) +
+      coord_fixed()
+
+    # save plot
+    ggsave(
+      paste0(
+        output_pheno_graphics_path,
+        "spats_residuals_spatial_plot_", trait_, ".png"
+      ),
+      plot = spat_resid_plot_, width = 16, height = 8, dpi = 300
+    )
+
+    # make spatial object
+    coordinates(df_spats_trait_) <- ~ C + R
+
+    # compute residuals empirical variogram
+    emp_vgm <- variogram(spats_residuals ~ 1, data = df_spats_trait_)
+
+    # plot variogram
+    variogram_plot <- ggplot(emp_vgm, aes(x = dist, y = gamma)) +
+      geom_point(color = "darkblue", size = 2) +
+      labs(
+        title = paste0("SpATS residuals variogram for ", trait_),
+        x = "Distance",
+        y = "Semivariance"
+      ) +
+      scale_y_continuous(
+        expand = c(0, 0),
+        limits = c(0, 1.1 * max(emp_vgm$gamma))
+      ) +
+      theme_minimal()
+
+    # save variogram graphic
+    ggsave(
+      filename = paste0(
+        output_pheno_graphics_path,
+        "spats_variogram_spatial_plot_", trait_, ".png"
+      ),
+      plot = variogram_plot,
+      width = 7, height = 5, dpi = 300,
+      bg = "white"
+    )
 
     # sort list
     singular_model_list_[[trait_]] <-

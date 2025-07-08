@@ -27,6 +27,7 @@ library(tidyr)
 library(dplyr)
 library(lsmeans)
 library(lme4)
+library(pheatmap)
 
 # detect and set script path automatically, and source functions
 setwd(dirname(getActiveDocumentContext()$path))
@@ -47,6 +48,11 @@ output_genom_graphics_path <- "../../results/genomic_prediction_graphics/"
 # set maximum number of principal components to be tested using akaike
 # information criterion
 max_n_comp_ <- 10
+
+# umap parameters, most sensitive ones
+random_state_umap_ <- 15
+n_neighbors_umap_ <- 15
+min_dist_ <- 0.1
 
 # define traits_
 traits_ <- c(
@@ -101,3 +107,92 @@ fwrite(as.data.frame(geno_df),
   file = paste0(genom_dir_path, "genomic_data.csv"),
   row.names = T
 )
+
+# convert geno_df to numeric matrix
+geno_mat <- scale(apply(geno_df, 2, as.numeric), center = T, scale = F)
+k_mat <- crossprod(t(geno_mat))
+
+# create a heatmap for genomic covariance matrix
+png(
+  paste0(
+    output_genom_graphics_path,
+    "maize_genomic_covariance_heatmap.png"
+  ),
+  width = 1200, height = 1200, res = 150
+)
+pheatmap(k_mat,
+  clustering_distance_rows = "euclidean",
+  clustering_distance_cols = "euclidean",
+  main = "Maize dataset genomic covariance matrix heatmap",
+  color = colorRampPalette(c("blue", "red"))(100),
+  show_rownames = T,
+  show_colnames = T
+)
+dev.off()
+
+# compute pca for genomic data
+geno_pca <- mixOmics::pca(apply(geno_df, 2, as.numeric), 2,
+  center = T,
+  scale = F,
+  ncomp = max_n_comp_
+)
+pc_coord_df_ <- as.data.frame(geno_pca$variates)[, 1:max_n_comp_]
+colnames(pc_coord_df_) <- str_replace_all(
+  colnames(pc_coord_df_),
+  pattern = "X.", replacement = ""
+)
+pc_var_names_ <- colnames(pc_coord_df_)
+pc_coord_df_$Genotype <- rownames(geno_df)
+geno_pca_exp_var_ <- geno_pca$explained_variance
+
+# create pca plot
+pca_fig_x_y <- plot_ly(
+  data = pc_coord_df_,
+  x = ~PC1, y = ~PC2,
+  type = "scatter", mode = "markers"
+) %>%
+  layout(
+    plot_bgcolor = "#e5ecf6",
+    title = "PCA 2D plot for maize dataset genomic data (41722 SNP)",
+    xaxis = list(title = paste0(
+      names(geno_pca_exp_var_)[1], ": ",
+      signif(100 * as.numeric(geno_pca_exp_var_)[1], 2), "%"
+    )),
+    yaxis = list(title = paste0(
+      names(geno_pca_exp_var_)[2], ": ",
+      signif(100 * as.numeric(geno_pca_exp_var_)[2], 2), "%"
+    ))
+  )
+
+# save pca graphic
+saveWidget(pca_fig_x_y, file = paste0(
+  output_genom_graphics_path, "maize_pca_genomic_data.html"
+))
+
+# compute umap in 2d
+geno_umap_2d_model <- umap(
+  apply(geno_df, 2, as.numeric),
+  n_components = 2,
+  random_state = random_state_umap_,
+  n_neighbors = n_neighbors_umap_,
+  min_dist = min_dist_
+)
+geno_umap_2d <- data.frame(geno_umap_2d_model[["layout"]])
+
+# create umap plot
+umap_fig_x_y <- plot_ly(
+  data = geno_umap_2d,
+  x = ~X1, y = ~X2,
+  type = "scatter", mode = "markers", color = "orange"
+) %>%
+  layout(
+    plot_bgcolor = "#e5ecf6",
+    title = "UMAP 2D plot for maize dataset genomic data (41722 SNP)",
+    xaxis = list(title = "First component"),
+    yaxis = list(title = "Second component")
+  )
+
+# save umap graphic
+saveWidget(umap_fig_x_y, file = paste0(
+  output_genom_graphics_path, "maize_umap_genomic_data.html"
+))
